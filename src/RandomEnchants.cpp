@@ -1332,7 +1332,7 @@ public:
 
     RandomEnchantsPlayer() : PlayerScript("RandomEnchantsPlayer") { }
 
-    void OnLogin(Player* player) override {
+    void OnPlayerLogin(Player* player) override {
         if (config_announce_on_log)
         {
             ChatHandler(player->GetSession()).SendSysMessage(config_login_message);
