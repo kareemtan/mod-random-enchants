@@ -1298,7 +1298,7 @@ void RollPossibleEnchant(Player* player, Item* item)
     ChatHandler chathandle = ChatHandler(player->GetSession());
     uint32 loc = player->GetSession()->GetSessionDbLocaleIndex();
     std::string suffixName = item_rand->Name[loc];
-    chathandle.PSendSysMessage("|cffFF0000 %s |rhas rolled the suffix|cffFF0000 %s |r!", item->GetTemplate()->Name1.c_str(), suffixName);
+    chathandle.PSendSysMessage("|cffFF0000 {} |rhas rolled the suffix|cffFF0000 {} |r!", item->GetTemplate()->Name1.c_str(), suffixName);
 }
 
 // END MAIN GET ROLL ENCHANTS FUNCTIONS
@@ -1338,30 +1338,30 @@ public:
             ChatHandler(player->GetSession()).SendSysMessage(config_login_message);
         }
     }
-    void OnStoreNewItem(Player* player, Item* item, uint32 /*count*/) override
+    void OnPlayerStoreNewItem(Player* player, Item* item, uint32 /*count*/) override
     {
         if (/*!HasBeenTouchedByRandomEnchantMod(item) && */config_on_loot)
 
             RollPossibleEnchant(player, item);
     }
-    void OnCreateItem(Player* player, Item* item, uint32 /*count*/) override
+    void OnPlayerCreateItem(Player* player, Item* item, uint32 /*count*/) override
     {
         if (/*!HasBeenTouchedByRandomEnchantMod(item) && */config_on_create)
             RollPossibleEnchant(player, item);
     }
-    void OnQuestRewardItem(Player* player, Item* item, uint32 /*count*/) override
+    void OnPlayerQuestRewardItem(Player* player, Item* item, uint32 /*count*/) override
     {
         if(/*!HasBeenTouchedByRandomEnchantMod(item) && */config_on_quest_reward)
             RollPossibleEnchant(player, item);
     }
-    void OnGroupRollRewardItem(Player* player, Item* item, uint32 /*count*/, RollVote /*voteType*/, Roll* /*roll*/) override
+    void OnPlayerGroupRollRewardItem(Player* player, Item* item, uint32 /*count*/, RollVote /*voteType*/, Roll* /*roll*/) override
     {
         if (/*!HasBeenTouchedByRandomEnchantMod(item) && */config_on_group_roll_reward_item)
         {
             RollPossibleEnchant(player, item);
         }
     }
-    void OnAfterStoreOrEquipNewItem(Player* player, uint32 /*vendorslot*/, Item* item, uint8 /*count*/, uint8 /*bag*/, uint8 /*slot*/, ItemTemplate const* /*pProto*/, Creature* /*pVendor*/, VendorItem const* /*crItem*/, bool /*bStore*/) override
+    void OnPlayerAfterStoreOrEquipNewItem(Player* player, uint32 /*vendorslot*/, Item* item, uint8 /*count*/, uint8 /*bag*/, uint8 /*slot*/, ItemTemplate const* /*pProto*/, Creature* /*pVendor*/, VendorItem const* /*crItem*/, bool /*bStore*/) override
     {
         if (/*!HasBeenTouchedByRandomEnchantMod(item) && */config_on_vendor_purchase)
         {
